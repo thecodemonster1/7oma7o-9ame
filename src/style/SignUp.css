@@ -1,0 +1,73 @@
+/* SignUpPage.css */
+.login-page {
+    background-position: center;
+    background-color: #1965cf;
+    background-repeat: no-repeat;
+    background-size: 27%;
+    height: 115vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 2rem 0;
+  }
+  
+  .login-page h1 {
+    font-size: 72px;
+    text-align: center;
+    margin-top: 0;
+    color: #fff;
+  }
+  
+  .login-form {
+    background-color: rgba(170, 166, 168, 0.5);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 250px;
+    max-width: 80%;
+    margin-top: 1rem;
+  }
+  
+  .login-form label {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    display: block;
+  }
+  
+  .login-form input {
+    margin-bottom: 16px;
+    width: calc(100% - 30px);
+    padding: 12px;
+    border-radius: 25px;
+  }
+  
+  .password-field {
+    position: relative;
+  }
+  
+  .password-field input {
+    width: calc(100% - 30px);
+    padding-right: 40px;
+  }
+  
+  .password-field .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 38%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .sign-button {
+    border-radius: 25px;
+    background-color: red;
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 50%;
+    margin-left: 20;
+  }
+  

@@ -1,0 +1,63 @@
+/* Styles for the container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh; /* Use the full height of the viewport */
+  background-color: lightblue; /* Set light blue background color */
+  padding-top: 20px; /* Add padding to the top */
+}
+
+/* Styles for the question image */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styles for the restart game button */
+.restart-button {
+  padding: 20px 40px; /* Make the padding larger */
+  font-size: 24px; /* Make the font size larger */
+  background-color: red; /* Use red color for background */
+  color: white; /* Use white color for text */
+  border: none;
+  cursor: pointer;
+}
+
+/* Styles for the 0-9 number buttons */
+.number-buttons {
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* width: 100%; */
+  /* align-items: center; */
+  text-align: center;
+  margin-top: 20px;
+}
+
+.number-buttons button {
+  /* padding: 10px; /* Make the padding smaller */
+  /* padding-bottom: 2px; */
+  font-size: 20px; /* Make the font size smaller */
+  background-color: #656565; /* Use ash color for background */
+  color: rgb(255, 255, 255); /* Use black color for text */
+  border: none;
+  cursor: pointer;
+  border-radius: 50%; /* Make the button circular */
+  width: 45px; /* Set the width */
+  height: 45px; /* Set the height */
+}
+
+/* Styles for the timer */
+.timer {
+  font-size: 36px; /* Make the font size larger */
+  margin-bottom: 20px; /* Add margin at the bottom */
+}
+
+/* Styles for the answer */
+.answer {
+  margin: 20px; /* Remove margin at the top */
+  font-size: 25px;
+}
