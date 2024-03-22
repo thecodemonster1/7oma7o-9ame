@@ -51,5 +51,3 @@ You can install these modules using npm:
 ```bash
 npm install react react-dom react-router-dom firebase @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 ```
-
-Feel free to customize and expand this README file as needed for your project!
