@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# Tomato Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tomato Game is a fun and interactive web application where users can play a game involving solving mathematical equations hidden within images of tomatoes. This project is built using React.js and Firebase for authentication and data storage.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication**: Users can sign up and log in securely using their email and password.
+- **Tomato Game**: Users can play the Tomato Game, where they are presented with mathematical equations hidden within tomato images and have to identify the hidden numbers.
+- **High Scoreboard**: Successfully completing challenges earns users a spot on the high scoreboard, where they can compete with others and showcase their tomato-solving skills.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run this project locally, you need to have Node.js and npm installed on your machine.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone this repository:
 
-### `npm test`
+```bash
+git clone https://github.com/your-username/tomato-game.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navigate to the project directory:
 
-### `npm run build`
+```bash
+cd tomato-game
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the development server:
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. Open your web browser and navigate to `http://localhost:3000` to view the application.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Modules to Install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [react](https://www.npmjs.com/package/react): A JavaScript library for building user interfaces.
+- [react-dom](https://www.npmjs.com/package/react-dom): Provides DOM-specific methods that can be used at the top level of a web app to enable React components to be rendered into the DOM.
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom): DOM bindings for React Router, allowing you to navigate and handle routes in your React applications.
+- [firebase](https://www.npmjs.com/package/firebase): Firebase provides the tools and infrastructure you need to develop, grow, and earn money from your app.
+- [font-awesome](https://www.npmjs.com/package/@fortawesome/react-fontawesome): A library that provides React components for Font Awesome icons.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You can install these modules using npm:
 
-## Learn More
+```bash
+npm install react react-dom react-router-dom firebase @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to customize and expand this README file as needed for your project!
