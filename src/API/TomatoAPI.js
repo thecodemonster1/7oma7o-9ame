@@ -79,34 +79,47 @@
 
 // export default TomatoAPI;
 
-
-import React, { useState, useEffect } from 'react';
-import "../style/TomatoAPI.css"; // Import your CSS file
+import React, { useState, useEffect } from "react";
+import "../style/TomatoAPI.css";
 
 function TomatoAPI() {
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState("");
   const [solution, setSolution] = useState(-1);
-  const [userInput, setUserInput] = useState('');
-  const [error, setError] = useState('');
+  const [userInput, setUserInput] = useState("");
+  const [error, setError] = useState("");
   const [time, setTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://marcconrad.com/uob/tomato/api.php');
+      // Fetch data from the Tomato API endpoint
+      const response = await fetch("https://marcconrad.com/uob/tomato/api.php");
+
+      // Check if the response is successful
       if (!response.ok) {
-        throw new Error('Failed to fetch data');
+        throw new Error("Failed to fetch data");
       }
+
+      // Parse the response data as JSON
       const data = await response.json();
-      console.log('API - Question =', data.question);
-      console.log('API - Solution =', data.solution);
+
+      // Log the fetched question and solution to the console
+      console.log("API - Question =", data.question);
+      console.log("API - Solution =", data.solution);
+
+      // Set the fetched question and solution in the component's state
       setQuestion(data.question);
       setSolution(data.solution);
-      setUserInput(''); // Clear user input on new question
-      startTimer(); // Start timer when new question is fetched
+
+      // Reset user input
+      setUserInput("");
+
+      // Start the timer
+      startTimer();
     } catch (error) {
+      // Handle errors if any
       setError(error.message);
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -133,10 +146,10 @@ function TomatoAPI() {
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
-      alert('Correct! ');
+      alert("Correct! ");
       restartGame();
     } else {
-      alert('Incorrect. Try again!');
+      alert("Incorrect. Try again!");
     }
   };
 
@@ -147,7 +160,8 @@ function TomatoAPI() {
 
   const handleNumberClick = (number) => {
     setUserInput((prevUserInput) => {
-      if (prevUserInput.length < 1) { // Allow only single-digit input
+      if (prevUserInput.length < 1) {
+        // Allowing only single-digit input
         return number.toString();
       }
       return prevUserInput;
@@ -170,25 +184,18 @@ function TomatoAPI() {
       </div>
       <div className="answer">
         Answer:
-        <input
-          type="number"
-          value={userInput}
-          readOnly // Disable input field editing
-        />
-        <button className="check-button" onClick={checkAnswer} disabled={userInput.length === 0}>
+        <input type="number" value={userInput} readOnly />
+        <button
+          className="check-button"
+          onClick={checkAnswer}
+          disabled={userInput.length === 0}
+        >
           Check Answer
         </button>
       </div>
       <button className="restart-button" onClick={restartGame}>
         Restart Game
       </button>
-      {/* <p className="credits">
-        © by{' '}
-        <a href="https://marcconrad.com/marc-conrad/index.php?n=12&amp;s=mc">
-          Marc Conrad
-        </a>{' '}
-        2023. (Game content and credits section remains the same)
-      </p> */}
     </div>
   );
 }
