@@ -116,7 +116,7 @@ function TomatoAPI() {
   return (
     <div className="container">
       {!startGame ? (
-        <button className="restart-button" onClick={handleStartGame}>
+        <button className="sign-button" onClick={handleStartGame}>
           Start Game
         </button>
       ) : (
