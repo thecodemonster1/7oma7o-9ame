@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../style/TomatoAPI.css";
 
 function TomatoAPI() {
-  const [points, setPoints] = useState(0);
+  const [score, setScore] = useState(5);
   const [question, setQuestion] = useState("");
   const [solution, setSolution] = useState(-1);
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState("");
   const [time, setTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
+  const [restartButtonText, setRestartButtonText] = useState("Start Game");
+  const [gameOver, setGameOver] = useState(false);
+  const [startGame, setStartGame] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -66,14 +69,31 @@ function TomatoAPI() {
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
-      alert("Correct! ");
+      // setScore(score + 1);
+      alert("Correct! "); // \n Score: " + (score + 1)
+
       restartGame();
     } else {
-      alert("Incorrect. Try again!");
+      const newScore = score - 1;
+      setScore(newScore);
+      alert(`Incorrect. Try again! \n Score: ${newScore}`);
+
+      // Reset user input
+      setUserInput("");
+
+      if (newScore <= 0) {
+        console.log("Game Over!");
+        setGameOver(true);
+        stopTimer();
+      }
     }
   };
 
   const restartGame = () => {
+    // const rsButton = document.getElementsByClassName('restart-button');
+    // rsButton.innerHtml = 'Restart'
+    setRestartButtonText("New Game");
+    setGameOver(false);
     stopTimer();
     fetchData();
   };
@@ -88,34 +108,47 @@ function TomatoAPI() {
     });
   };
 
+  const handleStartGame = () => {
+    setStartGame(true);
+    fetchData();
+  };
+
   return (
     <div className="container">
-      {error && <div className="error">Error: {error}</div>}
-      <div className="timer">Time: {time} seconds</div>
-      <div className="question-container">
-        <img src={question} alt="Question" />
-      </div>
-      <div className="number-buttons">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
-          <button key={number} onClick={() => handleNumberClick(number)}>
-            {number}
-          </button>
-        ))}
-      </div>
-      <div className="answer">
-        Answer:
-        <input type="number" value={userInput} readOnly />
-        <button
-          className="check-button"
-          onClick={checkAnswer}
-          disabled={userInput.length === 0}
-        >
-          Check Answer
+      {!startGame ? (
+        <button className="restart-button" onClick={handleStartGame}>
+          Start Game
         </button>
-      </div>
-      <button className="restart-button" onClick={restartGame}>
-        Restart Game
-      </button>
+      ) : (
+        <>
+          {error && <div className="error">Error: {error}</div>}
+          <div className="timer">Time: {time} seconds</div>
+          <div className="question-container">
+            <img src={question} alt="Question" />
+          </div>
+          <div className="number-buttons">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
+              <button key={number} onClick={() => handleNumberClick(number)}>
+                {number}
+              </button>
+            ))}
+          </div>
+          <div className="answer">
+            Answer:
+            <input type="number" value={userInput} readOnly />
+            <button
+              className="check-button"
+              onClick={checkAnswer}
+              disabled={userInput.length === 0}
+            >
+              Check Answer
+            </button>
+          </div>
+          <button className="restart-button" onClick={restartGame}>
+            New Game
+          </button>
+        </>
+      )}
     </div>
   );
 }
