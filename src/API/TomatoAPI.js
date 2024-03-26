@@ -144,7 +144,7 @@ function TomatoAPI() {
               Check Answer
             </button>
           </div>
-          <button className="restart-button" onClick={restartGame}>
+          <button className="sign-button" onClick={restartGame}>
             New Game
           </button>
         </>
