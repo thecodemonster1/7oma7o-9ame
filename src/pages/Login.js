@@ -36,7 +36,11 @@ const LoginPage = () => {
   const logInfun = async () => {
     try {
       // Fetch user data for the entered username
-      const snapshot = await database.ref("users").orderByChild("username").equalTo(username).once("value");
+      const snapshot = await database
+        .ref("users")
+        .orderByChild("username")
+        .equalTo(username)
+        .once("value");
       const userData = snapshot.val();
 
       if (!userData) {
@@ -65,8 +69,13 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <h1>
-        <span role="img" aria-label="tomato">🍅</span>Login Page
-        <span role="img" aria-label="tomato">🍅</span>
+        <span role="img" aria-label="tomato">
+          🍅
+        </span>
+        Login Page
+        <span role="img" aria-label="tomato">
+          🍅
+        </span>
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="login-form">
@@ -103,7 +112,14 @@ const LoginPage = () => {
               Register here
             </span>
           </p>
-          <button type="submit" className="sign-button" onClick={logInfun}>
+          <button
+            type="submit"
+            className="sign-button"
+            style={{
+              width: "50%",
+            }}
+            onClick={logInfun}
+          >
             Log In
           </button>
         </div>
