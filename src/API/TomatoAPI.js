@@ -135,9 +135,17 @@ function TomatoAPI() {
           </div>
           <div className="answer">
             Answer:
-            <input type="number" value={userInput} readOnly />
+            <input
+              type="number"
+              className="inp-ans"
+              value={userInput}
+              readOnly
+            />
             <button
-              className="check-button"
+              className="sign-button"
+              style={{
+                width: "50%",
+              }}
               onClick={checkAnswer}
               disabled={userInput.length === 0}
             >
