@@ -46,8 +46,9 @@
 
 .login-form .eye-icon {
   position: absolute;
-  right: 5px;
-  top: 50%;
+  /* right: 5px;
+  top: 50%; */
+  
   transform: translateY(-50%);
   cursor: pointer;
   /* margin-left: 20px; */
@@ -71,4 +72,13 @@
   margin-top: -10px; /* Adjust the margin to move closer to the password field */
   text-align: center;
   cursor: pointer;
+}
+
+
+.svg-inline--fa {
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  padding-left: 10px;
 }
