@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../style/TomatoAPI.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 function TomatoAPI() {
-  const [score, setScore] = useState(5);
+  const [heart, setHeart] = useState(5);
+  const [score, setScore] = useState(0);
   const [question, setQuestion] = useState("");
   const [solution, setSolution] = useState(-1);
   const [userInput, setUserInput] = useState("");
@@ -69,17 +72,19 @@ function TomatoAPI() {
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
+      setScore(score + 1);
       alert("Correct!");
-      restartGame();
+      fetchData();
+      // restartGame();
     } else {
-      const newScore = score - 1;
-      setScore(newScore);
-      alert(`Incorrect. Try again! \n Score: ${newScore}`);
+      const newHeart = heart - 1;
+      setHeart(newHeart);
+      alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
 
       // Reset user input
       setUserInput("");
 
-      if (newScore <= 0) {
+      if (newHeart <= 0) {
         console.log("Game Over!");
         setGameOver(true);
         stopTimer();
@@ -90,6 +95,8 @@ function TomatoAPI() {
   const restartGame = () => {
     setRestartButtonText("New Game");
     setGameOver(false);
+    setHeart(5);
+    setScore(0);
     stopTimer();
     fetchData();
   };
@@ -160,6 +167,11 @@ function TomatoAPI() {
                 >
                   Check
                 </button>
+              </div>
+              <div className="heart-icons">
+                {[...Array(heart)].map((_, index) => (
+                  <FontAwesomeIcon key={index} icon={faHeart} />
+                ))}
               </div>
               <button className="sign-button" onClick={restartGame}>
                 New Game
