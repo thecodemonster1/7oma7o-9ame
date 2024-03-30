@@ -153,12 +153,12 @@ function TomatoAPI() {
                 <button
                   className="sign-button"
                   style={{
-                    width: "50%",
+                    width: "150px",
                   }}
                   onClick={checkAnswer}
                   disabled={userInput.length === 0}
                 >
-                  Check Answer
+                  Check
                 </button>
               </div>
               <button className="sign-button" onClick={restartGame}>
