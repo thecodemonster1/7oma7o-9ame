@@ -69,9 +69,7 @@ function TomatoAPI() {
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
-      // setScore(score + 1);
-      alert("Correct! "); // \n Score: " + (score + 1)
-
+      alert("Correct!");
       restartGame();
     } else {
       const newScore = score - 1;
@@ -90,8 +88,6 @@ function TomatoAPI() {
   };
 
   const restartGame = () => {
-    // const rsButton = document.getElementsByClassName('restart-button');
-    // rsButton.innerHtml = 'Restart'
     setRestartButtonText("New Game");
     setGameOver(false);
     stopTimer();
@@ -121,40 +117,55 @@ function TomatoAPI() {
         </button>
       ) : (
         <>
-          {error && <div className="error">Error: {error}</div>}
-          <div className="timer">Time: {time} seconds</div>
-          <div className="question-container">
-            <img src={question} alt="Question" />
-          </div>
-          <div className="number-buttons">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
-              <button key={number} onClick={() => handleNumberClick(number)}>
-                {number}
+          {gameOver ? (
+            <>
+              <h1>Game Over</h1>
+              <h3>Your Score is {score}</h3>
+              <button className="sign-button" onClick={restartGame}>
+                New Game
               </button>
-            ))}
-          </div>
-          <div className="answer">
-            Answer:
-            <input
-              type="number"
-              className="inp-ans"
-              value={userInput}
-              readOnly
-            />
-            <button
-              className="sign-button"
-              style={{
-                width: "50%",
-              }}
-              onClick={checkAnswer}
-              disabled={userInput.length === 0}
-            >
-              Check Answer
-            </button>
-          </div>
-          <button className="sign-button" onClick={restartGame}>
-            New Game
-          </button>
+            </>
+          ) : (
+            <>
+              {error && <div className="error">Error: {error}</div>}
+              <div className="timer">Time: {time} seconds</div>
+              <div className="question-container">
+                <img src={question} alt="Question" />
+              </div>
+              <div className="number-buttons">
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => (
+                  <button
+                    key={number}
+                    onClick={() => handleNumberClick(number)}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
+              <div className="answer">
+                Answer:
+                <input
+                  type="number"
+                  className="inp-ans"
+                  value={userInput}
+                  readOnly
+                />
+                <button
+                  className="sign-button"
+                  style={{
+                    width: "50%",
+                  }}
+                  onClick={checkAnswer}
+                  disabled={userInput.length === 0}
+                >
+                  Check Answer
+                </button>
+              </div>
+              <button className="sign-button" onClick={restartGame}>
+                New Game
+              </button>
+            </>
+          )}
         </>
       )}
     </div>
