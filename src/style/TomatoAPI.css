@@ -59,7 +59,11 @@ img {
 /* Styles for the answer */
 .answer {
   margin: 20px; /* Remove margin at the top */
-  font-size: 25px;
+  font-size: 35px;
+}
+.answer input{
+  width: 100px;
+  margin-left: 50px;
 }
 
 .sign-button {
