@@ -72,7 +72,7 @@ function TomatoAPI() {
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
-      setScore(score + 1);
+      setScore(score + 10);
       alert("Correct!");
       fetchData();
       // restartGame();
