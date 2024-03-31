@@ -62,12 +62,13 @@
   .sign-button {
     border-radius: 25px;
     background-color: red;
-    color: #ffffff;
+    color: #fff;
     padding: 12px 24px;
     font-size: 20px;
     font-weight: bold;
-    margin-top: 20px;
-    width: 50%;
-    margin-left: 20;
+    margin-top: 5px;
+    margin-left: 60px;
   }
+
+  
   

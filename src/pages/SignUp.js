@@ -116,7 +116,14 @@ const SignUpPage = () => {
             />
           </div>
           <br />
-          <button type="button" className="sign-button" onClick={handleSave}>
+          <button
+            type="button"
+            className="sign-button"
+            style={{
+              width: "50%",
+            }}
+            onClick={handleSave}
+          >
             Save
           </button>
         </div>

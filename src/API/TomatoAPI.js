@@ -136,6 +136,11 @@ function TomatoAPI() {
             <>
               {error && <div className="error">Error: {error}</div>}
               <div className="timer">Time: {time} seconds</div>
+              <div className="heart-icons">
+                {[...Array(heart)].map((_, index) => (
+                  <FontAwesomeIcon key={index} icon={faHeart} />
+                ))}
+              </div>
               <div className="question-container">
                 <img src={question} alt="Question" />
               </div>
@@ -168,11 +173,7 @@ function TomatoAPI() {
                   Check
                 </button>
               </div>
-              <div className="heart-icons">
-                {[...Array(heart)].map((_, index) => (
-                  <FontAwesomeIcon key={index} icon={faHeart} />
-                ))}
-              </div>
+
               <button className="sign-button" onClick={restartGame}>
                 New Game
               </button>

@@ -102,3 +102,11 @@ img {
     font-size: 24px;
     position: relative;
 }
+
+.heart-icons {
+  display: inline-block;
+  padding: 1%;
+  padding-left: 500px;
+  font-size: 24px;
+  color: red;
+}
