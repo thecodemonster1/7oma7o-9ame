@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App"; // Assuming your main component is named App
 import { BrowserRouter } from "react-router-dom";
-import Descreption from './pages/Description';
+import GameOver from "./components/GameOver";
 import './style/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../style/TomatoAPI.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import GameOver from "../components/GameOver";
 
 function TomatoAPI() {
   const [heart, setHeart] = useState(5);
@@ -79,7 +80,7 @@ function TomatoAPI() {
     } else {
       const newHeart = heart - 1;
       setHeart(newHeart);
-      alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
+      // alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
 
       // Reset user input
       setUserInput("");
@@ -87,6 +88,7 @@ function TomatoAPI() {
       if (newHeart <= 0) {
         console.log("Game Over!");
         setGameOver(true);
+        GameOver();
         stopTimer();
       }
     }
@@ -116,6 +118,80 @@ function TomatoAPI() {
     fetchData();
   };
 
+  // const GameOver = () => {
+  //   const Confettiful = function (el) {
+  //     this.el = el;
+  //     this.containerEl = null;
+
+  //     this.confettiFrequency = 3;
+  //     this.confettiColors = [
+  //       "#EF2964",
+  //       "#00C09D",
+  //       "#2D87B0",
+  //       "#48485E",
+  //       "#EFFF1D",
+  //     ];
+  //     this.confettiAnimations = ["slow", "medium", "fast"];
+
+  //     this._setupElements();
+  //     this._renderConfetti();
+  //   };
+
+  //   Confettiful.prototype._setupElements = function () {
+  //     const containerEl = document.createElement("div");
+  //     const elPosition = this.el.style.position;
+
+  //     if (elPosition !== "relative" || elPosition !== "absolute") {
+  //       this.el.style.position = "relative";
+  //     }
+
+  //     containerEl.classList.add("confetti-container");
+
+  //     this.el.appendChild(containerEl);
+
+  //     this.containerEl = containerEl;
+  //   };
+
+  //   Confettiful.prototype._renderConfetti = function () {
+  //     this.confettiInterval = setInterval(() => {
+  //       const confettiEl = document.createElement("div");
+  //       const confettiSize = Math.floor(Math.random() * 3) + 7 + "px";
+  //       const confettiBackground =
+  //         this.confettiColors[
+  //           Math.floor(Math.random() * this.confettiColors.length)
+  //         ];
+  //       const confettiLeft =
+  //         Math.floor(Math.random() * this.el.offsetWidth) + "px";
+  //       const confettiAnimation =
+  //         this.confettiAnimations[
+  //           Math.floor(Math.random() * this.confettiAnimations.length)
+  //         ];
+
+  //       confettiEl.classList.add(
+  //         "confetti",
+  //         "confetti--animation-" + confettiAnimation
+  //       );
+  //       confettiEl.style.left = confettiLeft;
+  //       confettiEl.style.width = confettiSize;
+  //       confettiEl.style.height = confettiSize;
+  //       confettiEl.style.backgroundColor = confettiBackground;
+
+  //       confettiEl.removeTimeout = setTimeout(function () {
+  //         confettiEl.parentNode.removeChild(confettiEl);
+  //       }, 3000);
+
+  //       this.containerEl.appendChild(confettiEl);
+  //     }, 25);
+  //   };
+
+  //   // Stop the confetti animation after 5 seconds
+  //   setTimeout(() => {
+  //     clearInterval(window.confettiful.confettiInterval);
+  //   }, 5000);
+
+  //   const confettiful = new Confettiful(document.querySelector(".container"));
+  // };
+
   return (
     <div className="container">
       {!startGame ? (
@@ -128,9 +204,14 @@ function TomatoAPI() {
             <>
               <h1>Game Over</h1>
               <h3>Your Score is {score}</h3>
-              <button className="sign-button" onClick={restartGame}>
+              <button
+                className="sign-button"
+                style={{ width: "250px" }}
+                onClick={restartGame}
+              >
                 New Game
               </button>
+              {/* <GameOver finalScore={score} /> */}
             </>
           ) : (
             <>
