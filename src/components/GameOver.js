@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../style/GameOver.css";
 
-const GameOver = ({ finalScore }) => {
+const GameOver = () => {
   const [isContainerReady, setIsContainerReady] = useState(false);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const GameOver = ({ finalScore }) => {
   return (
     <div className="container">
       {isContainerReady && <div className="confetti-container"></div>}
-      <h1>Game Over</h1>
+      {/* <h1>Game Over</h1>
       <h3>Your Score is {finalScore}</h3>
       <button
         className="sign-button"
@@ -68,7 +68,7 @@ const GameOver = ({ finalScore }) => {
         // onClick={handleRestartGame} // Use the passed-in prop for restart
       >
         New Game
-      </button>
+      </button> */}
     </div>
   );
 };
