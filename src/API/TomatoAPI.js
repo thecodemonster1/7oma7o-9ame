@@ -211,7 +211,7 @@ function TomatoAPI() {
               >
                 New Game
               </button>
-              <GameOver />
+              {/* <GameOver /> */}
             </>
           ) : (
             <>

@@ -6,9 +6,9 @@ const GameOver = () => {
 
   useEffect(() => {
     setIsContainerReady(true);
-  }, []);
+  // }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
     if (!isContainerReady) return; // Exit if element not ready
 
     const confettiContainer = document.querySelector(".confetti-container");
