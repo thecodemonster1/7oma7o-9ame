@@ -1,76 +1,78 @@
-import React, { useEffect, useState } from "react";
-import "../style/GameOver.css";
+// import React, { useEffect, useState } from "react";
+// // import "../style/GameOver.css";
+// // import TomatoAPI, {restartGame, handleRestartGame, score} from "../API/TomatoAPI";
 
-const GameOver = () => {
-  const [isContainerReady, setIsContainerReady] = useState(false);
+// const GameOver = () => {
+//   const [isContainerReady, setIsContainerReady] = useState(false);
 
-  useEffect(() => {
-    setIsContainerReady(true);
-  // }, []);
+//   useEffect(() => {
+//     setIsContainerReady(true);
 
-  // useEffect(() => {
-    if (!isContainerReady) return; // Exit if element not ready
+//   }, []);
 
-    const confettiContainer = document.querySelector(".confetti-container");
-    if (!confettiContainer) return; // Exit if element not found
+//   useEffect(() => {
+//     if (!isContainerReady) return; // Exit if element not ready
 
-    const confettiColors = [
-      "#EF2964",
-      "#00C09D",
-      "#2D87B0",
-      "#48485E",
-      "#EFFF1D",
-    ];
-    const confettiAnimations = [
-      "confetti--animation-slow",
-      "confetti--animation-medium",
-      "confetti--animation-fast",
-    ];
+//     const confettiContainer = document.querySelector(".confetti-container");
+//     if (!confettiContainer) return; // Exit if element not found
 
-    const createConfettiPiece = () => {
-      const confettiEl = document.createElement("div");
-      const confettiSize = Math.floor(Math.random() * 3) + 7 + "px";
-      const confettiBackground =
-        confettiColors[Math.floor(Math.random() * confettiColors.length)];
-      const confettiLeft =
-        Math.floor(Math.random() * confettiContainer.offsetWidth) + "px";
-      const confettiAnimation =
-        confettiAnimations[
-          Math.floor(Math.random() * confettiAnimations.length)
-        ];
+//     const confettiColors = [
+//       "#EF2964",
+//       "#00C09D",
+//       "#2D87B0",
+//       "#48485E",
+//       "#EFFF1D",
+//     ];
+//     const confettiAnimations = [
+//       "confetti--animation-slow",
+//       "confetti--animation-medium",
+//       "confetti--animation-fast",
+//     ];
 
-      confettiEl.classList.add("confetti", confettiAnimation);
-      confettiEl.style.left = confettiLeft;
-      confettiEl.style.width = confettiSize;
-      confettiEl.style.height = confettiSize;
-      confettiEl.style.backgroundColor = confettiBackground;
+//     const createConfettiPiece = () => {
+//       const confettiEl = document.createElement("div");
+//       const confettiSize = Math.floor(Math.random() * 3) + 7 + "px";
+//       const confettiBackground =
+//         confettiColors[Math.floor(Math.random() * confettiColors.length)];
+//       const confettiLeft =
+//         Math.floor(Math.random() * confettiContainer.offsetWidth) + "px";
+//       const confettiAnimation =
+//         confettiAnimations[
+//           Math.floor(Math.random() * confettiAnimations.length)
+//         ];
 
-      confettiEl.removeTimeout = setTimeout(function () {
-        confettiEl.parentNode.removeChild(confettiEl);
-      }, 3000);
+//       confettiEl.classList.add("confetti", confettiAnimation);
+//       confettiEl.style.left = confettiLeft;
+//       confettiEl.style.width = confettiSize;
+//       confettiEl.style.height = confettiSize;
+//       confettiEl.style.backgroundColor = confettiBackground;
 
-      confettiContainer.appendChild(confettiEl);
-    };
+//       confettiEl.removeTimeout = setTimeout(function () {
+//         confettiEl.parentNode.removeChild(confettiEl);
+//       }, 3000);
 
-    const interval = setInterval(createConfettiPiece, 25);
+//       confettiContainer.appendChild(confettiEl);
+//     };
 
-    return () => clearInterval(interval); // Clear interval on unmount
-  }, [isContainerReady]);
+//     const interval = setInterval(createConfettiPiece, 25);
 
-  return (
-    <div className="container">
-      {isContainerReady && <div className="confetti-container"></div>}
-      {/* <h1>Game Over</h1>
-      <h3>Your Score is {finalScore}</h3>
-      <button
-        className="sign-button"
-        style={{ width: "250px" }}
-        // onClick={handleRestartGame} // Use the passed-in prop for restart
-      >
-        New Game
-      </button> */}
-    </div>
-  );
-};
+//     return () => clearInterval(interval); // Clear interval on unmount
+//   }, [isContainerReady]);
 
-export default GameOver;
+//   return (
+//     <div className="container">
+//       {isContainerReady && <div className="confetti-container"></div>}
+//       <h1>Game Over</h1>
+//       <h3>Your Score is {score}</h3>
+//       <button
+//         className="sign-button"
+//         style={{ width: "250px" }}
+//         onClick={handleRestartGame} // Use the passed-in prop for restart
+//       >
+//         New Game
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default GameOver;
