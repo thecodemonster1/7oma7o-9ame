@@ -58,8 +58,8 @@ const SignUpPage = () => {
     firebase.database().ref("users").push(userData);
     console.log("User data saved successfully!");
 
-    // Redirect to Description page
-    navigate("/Description");
+    // Redirect to Login page
+    navigate("/Login");
   };
   return (
     <div className="login-page">
