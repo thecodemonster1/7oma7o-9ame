@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 // import GameOver from "../components/GameOver";
 
-function TomatoAPI() {
+const TomatoAPI = () => {
   const [heart, setHeart] = useState(5);
   const [score, setScore] = useState(0);
   const [question, setQuestion] = useState("");
