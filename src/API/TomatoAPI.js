@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
 import "../style/TomatoAPI.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 // import GameOver from "../components/GameOver";
 
-const TomatoAPI = () => {
+// Initialize Firebase with your configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDTHDV__dW8v7x2H7H6IVvZ_4Cl19RDzOA",
+  authDomain: "tomato-game-b7281.firebaseapp.com",
+  databaseURL: "https://tomato-game-b7281-default-rtdb.firebaseio.com",
+  projectId: "tomato-game-b7281",
+  storageBucket: "tomato-game-b7281.appspot.com",
+  messagingSenderId: "178393927012",
+  appId: "1:178393927012:web:e4d5a7a2f28ecab9f0be71",
+  measurementId: "G-7HTTX7C0F8",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const TomatoAPI = ({ username }) => {
   const [heart, setHeart] = useState(5);
   const [score, setScore] = useState(0);
   const [question, setQuestion] = useState("");
@@ -16,6 +32,11 @@ const TomatoAPI = () => {
   const [restartButtonText, setRestartButtonText] = useState("Start Game");
   const [gameOver, setGameOver] = useState(false);
   const [startGame, setStartGame] = useState(false);
+  // Write to firebase database
+  const scoreData = {
+    username: username,
+    score: score,
+  };
 
   const fetchData = async () => {
     try {
@@ -86,8 +107,9 @@ const TomatoAPI = () => {
       setUserInput("");
 
       if (newHeart <= 0) {
-        console.log("Game Over!");
+        console.log(username + " is Game Over!");
         setGameOver(true);
+        firebase.database().ref("scores").push(scoreData);
         // GameOver();
         stopTimer();
       }
@@ -118,19 +140,54 @@ const TomatoAPI = () => {
     fetchData();
   };
 
+  console.log("scoreData saved successfully!");
 
   return (
     <div className="container">
       {!startGame ? (
-        <button className="sign-button" onClick={handleStartGame}>
-          Start Game
-        </button>
+        <>
+          <h1>🍅Welcome to the Tomato Game! Here are the rules:🍅</h1>
+          <p>
+            🍅Hidden Equations: You'll be presented with mathematical equations,
+            and some numbers will be cleverly hidden within tomatos.
+          </p>
+          <p>
+            🍅Find the Numbers: Your task is to identify the hidden numbers
+            within the tomatoes.
+          </p>
+          <p>
+            🍅Hearts System: You start with 5 hearts. You'll lose a heart if you
+            fail to provide a correct answer.
+          </p>
+          <p>
+            🍅Losing Hearts: Losing all hearts ends the challenge. Accuracy and
+            speed are crucial to maintaining your hearts.
+          </p>
+          <p>
+            🍅HighScoreboard: Successfully complete challenges to earn a spot on
+            the highScoreboard. Complete with others and showcase your
+            tomato-solving skills.
+          </p>
+          <p>
+            🍅Logout:You can logout anytime using the "Logout" option in the
+            navigation menu.
+          </p>
+          <p>
+            🍅Play the Game:Click "Start Game"to begin your Tomato game
+            adventure.
+          </p>
+          <button className="sign-button" onClick={handleStartGame}>
+            Start Game
+          </button>
+        </>
       ) : (
         <>
           {gameOver ? (
             <>
               <h1>Game Over</h1>
-              <h3>Your Score is {score}</h3>
+              <h3>
+                {username}'s Score is {score}
+              </h3>
               <button
                 className="sign-button"
                 style={{ width: "250px" }}
@@ -191,6 +248,6 @@ const TomatoAPI = () => {
       )}
     </div>
   );
-}
+};
 
 export default TomatoAPI;
