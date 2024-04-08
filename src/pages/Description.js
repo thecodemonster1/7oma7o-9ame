@@ -5,11 +5,18 @@ import TomatoAPI from '../API/TomatoAPI.js' ;
 import { useNavigate } from "react-router-dom";
 
 
-const Description = () => {
+const Description = ({username}) => {
   const navigate = useNavigate();
   return (
+    <TomatoAPI username={username} />
+  );
+};
+
+export default Description;
+
+ {/* 
     <div className="description-container">
-      <h1>🍅Welcome to the Tomato Game! Here are the rules:🍅</h1>
+    <h1>🍅Welcome to the Tomato Game! Here are the rules:🍅</h1>
       <p>
       🍅Hidden Equations: You'll be presented with mathematical equations, and some
         numbers will be cleverly hidden within tomatos.
@@ -39,8 +46,4 @@ const Description = () => {
       <button className="play-button" onClick={() => navigate("/TomatoAPI")}>
         Play the Game
       </button>
-    </div>
-  );
-};
-
-export default Description;
+    </div> */}
