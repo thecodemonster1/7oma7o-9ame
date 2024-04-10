@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../style/SignUp.css"; // Import your CSS file
-import firebase from "firebase/compat/app"; // Import the Firebase module
-import "firebase/compat/database"; // Import the Firebase Realtime Database module
+import firebase from "firebase/compat/app"; 
+import "firebase/compat/database"; 
 import { useNavigate } from "react-router-dom";
 
 // Initialize Firebase with your configuration
