@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 20vh; /* Use the full height of the viewport */
+  }
+  
+  .highscores-table {
+    width: 80%;
+    border-collapse: collapse;
+  }
+  
+  .highscores-table th,
+  .highscores-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .highscores-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .highscores-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .highscores-table tr:hover {
+    background-color: #ddd;
+  }
