@@ -67,7 +67,6 @@ const TomatoAPI = () => {
     username: username,
     score: score,
   };
-
   
 
   const fetchData = async () => {
