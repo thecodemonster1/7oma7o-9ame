@@ -185,6 +185,9 @@ const TomatoAPI = () => {
     setIsPaused(!isPaused);
   };
 
+  const goLogout = () => {
+    navigate("/");
+  }
   return (
     <div className="container">
       {!startGame ? (
@@ -303,6 +306,9 @@ const TomatoAPI = () => {
               </button>
               <button className="sign-button" onClick={restartGame}>
                 New Game
+              </button>
+              <button className="sign-button" onClick={goLogout}>
+                Logout
               </button>
             </>
           )}
