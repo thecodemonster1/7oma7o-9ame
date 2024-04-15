@@ -60,15 +60,23 @@
   }
   
   .sign-button {
-    border-radius: 25px;
-    background-color: red;
-    color: #fff;
-    padding: 12px 24px;
+    /* text-align: center;
+    align-items: center; */
+    border-radius: 1cqmin;
+    background-color: rgba(92, 90, 90, 0.332);
+    color: #ffffff;
     font-size: 20px;
     font-weight: bold;
     margin-top: 5px;
-    margin-left: 60px;
+    margin-right: 2%;
+    width: 20%;
+    transition: all 1s;
   }
-
+  .sign-button:hover {
+    background-color: rgba(0, 255, 255, 0.571);
+    color:rgb(0, 0, 0);
+    border-radius: 5cqmin;
+    transition: all 1s;
+  }
   
   

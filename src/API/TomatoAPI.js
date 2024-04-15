@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../style/TomatoAPI.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import HighScoreBoard from "../pages/HighScoreBoard";
 // import GameOver from "../components/GameOver";
 
 // Initialize Firebase with your configuration
@@ -22,30 +23,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 
-// // Assuming you have a reference to your database (replace with your actual logic)
-// const database = firebase.database();
-
-// // Function to get the user's current highest score
-// const getUserHighestScore = async () => {
-//   const userRef = database.ref(`users/${username}/score`);
-//   const snapshot = await userRef.once('value');
-//   return snapshot.val() || 0; // Return 0 if score doesn't exist
-// };
-
-// const username = username;
-// const score = score;
-
-// // Get current highest score
-// const currentHighestScore = await getUserHighestScore();
-
-// // Update database if new score is higher
-// if (score > currentHighestScore) {
-//   await database.ref(`users/${username}`).update({ score: score });
-//   console.log(`New highest score for ${username}: ${score}`);
-// } else {
-//   console.log(`${username}'s current highest score remains: ${currentHighestScore}`);
-// }
-
 const TomatoAPI = () => {
   const [heart, setHeart] = useState(5);
   const [score, setScore] = useState(0);
@@ -58,9 +35,12 @@ const TomatoAPI = () => {
   const [restartButtonText, setRestartButtonText] = useState("Start Game");
   const [gameOver, setGameOver] = useState(false);
   const [startGame, setStartGame] = useState(false);
+  const [showScoreboard, setShowScoreboard] = useState(false);
 
   const location = useLocation();
   const username = location.state?.data;
+
+  const navigate = useNavigate();
   
   // Write to firebase database
   const scoreData = {
@@ -147,6 +127,10 @@ const TomatoAPI = () => {
     }
   };
 
+  const clearAnswer = () => {
+    setUserInput("");
+  }
+
   const restartGame = () => {
     setRestartButtonText("New Game");
     setGameOver(false);
@@ -171,7 +155,10 @@ const TomatoAPI = () => {
     fetchData();
   };
 
-  console.log("scoreData saved successfully!");
+  const goToScoreboard = () => {
+    setShowScoreboard(true);
+    navigate("/HighScoreBoard")
+  }
 
   return (
     <div className="container">
@@ -226,6 +213,13 @@ const TomatoAPI = () => {
               >
                 New Game
               </button>
+              <button
+                className="sign-button"
+                style={{ width: "250px" }}
+                onClick={goToScoreboard}
+              >
+                Scoreboard
+              </button>
               {/* <GameOver /> */}
             </>
           ) : (
@@ -267,6 +261,15 @@ const TomatoAPI = () => {
                   disabled={userInput.length === 0}
                 >
                   Check
+                </button>
+                <button
+                  className="sign-button"
+                  style={{
+                    width: "150px",
+                  }}
+                  onClick={clearAnswer}
+                >
+                  Clear
                 </button>
               </div>
 

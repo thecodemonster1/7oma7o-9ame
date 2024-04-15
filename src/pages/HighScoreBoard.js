@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
+import { useNavigate } from "react-router-dom";
 import "firebase/compat/database";
 import "../style/HighScoreBoard.css";
 
@@ -15,19 +16,19 @@ const firebaseConfig = {
   measurementId: "G-7HTTX7C0F8",
 };
 
-
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 // Function to fetch high scores from the database
 const fetchHighScores = async () => {
-  const scoresRef = database.ref('scores');
-  const snapshot = await scoresRef.once('value');
+  const scoresRef = database.ref("scores");
+  const snapshot = await scoresRef.orderByChild("score").limitToLast(10).once("value");
   const scores = snapshot.val();
   return scores ? Object.values(scores).sort((a, b) => b.score - a.score) : [];
 };
 
 const HighScoreBoard = () => {
+  const navigate = useNavigate();
   const [highScores, setHighScores] = useState([]);
 
   useEffect(() => {
@@ -38,9 +39,14 @@ const HighScoreBoard = () => {
     fetchScores();
   }, []);
 
+  const goNewGame = () => {
+    navigate("/TomatoAPI")
+  }
+
   return (
-    <div className="container">
-      <h1>High Score Board</h1>
+    <div className="container2">
+      
+      <h1>Scoreboard</h1>
       <table className="highscores-table">
         <thead>
           <tr>
@@ -59,6 +65,14 @@ const HighScoreBoard = () => {
           ))}
         </tbody>
       </table>
+      <br/><br/>
+      <button
+        className="sign-button"
+        style={{ width: "250px" }}
+        onClick={goNewGame}
+      >
+        New Game
+      </button>
     </div>
   );
 };
