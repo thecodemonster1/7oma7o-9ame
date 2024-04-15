@@ -22,7 +22,6 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
 const TomatoAPI = () => {
   const [heart, setHeart] = useState(5);
   const [score, setScore] = useState(0);
@@ -30,24 +29,23 @@ const TomatoAPI = () => {
   const [solution, setSolution] = useState(-1);
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState("");
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(60);
   const [timerRunning, setTimerRunning] = useState(false);
-  const [restartButtonText, setRestartButtonText] = useState("Start Game");
+  const [pauseButtonText, setPauseButtonText] = useState("Pause");
   const [gameOver, setGameOver] = useState(false);
   const [startGame, setStartGame] = useState(false);
-  const [showScoreboard, setShowScoreboard] = useState(false);
-
-  const location = useLocation();
-  const username = location.state?.data;
-
+  const [isPaused, setIsPaused] = useState(false);
+  
   const navigate = useNavigate();
+  const location = useLocation();
+  var username = location.state?.username;
   
   // Write to firebase database
   const scoreData = {
-    username: username,
+    username: location.state?.username,
+    // username: username,
     score: score,
   };
-  
 
   const fetchData = async () => {
     try {
@@ -84,7 +82,6 @@ const TomatoAPI = () => {
 
   const startTimer = () => {
     setTimerRunning(true);
-    setTime(0);
   };
 
   const stopTimer = () => {
@@ -95,17 +92,35 @@ const TomatoAPI = () => {
     let interval;
     if (timerRunning) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
+        setTime((prevTime) => {
+          // Decrement time by 1 second
+          if (prevTime === 0) {
+            // If time reaches 0, decrement heart by 1
+            const newHeart = heart - 1;
+            setHeart(newHeart);
+            if (newHeart < 1) {
+              // If no hearts left, stop the timer and set game over
+              stopTimer();
+              setGameOver(true);
+            } else {
+              // If hearts left, reset time to 60 seconds
+              setTime(60);
+            }
+          }
+          return prevTime > 0 ? prevTime - 1 : prevTime;
+        });
       }, 1000);
     } else {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
   }, [timerRunning]);
+  
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
       setScore(score + 10);
+      setTime(60);
       alert("Correct!");
       fetchData();
       // restartGame();
@@ -115,7 +130,7 @@ const TomatoAPI = () => {
       // alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
 
       // Reset user input
-      setUserInput("");
+      clearAnswer();
 
       if (newHeart <= 0) {
         console.log(username + " is Game Over!");
@@ -129,10 +144,10 @@ const TomatoAPI = () => {
 
   const clearAnswer = () => {
     setUserInput("");
-  }
+  };
 
   const restartGame = () => {
-    setRestartButtonText("New Game");
+    // setRestartButtonText("New Game");
     setGameOver(false);
     setHeart(5);
     setScore(0);
@@ -156,9 +171,19 @@ const TomatoAPI = () => {
   };
 
   const goToScoreboard = () => {
-    setShowScoreboard(true);
-    navigate("/HighScoreBoard")
-  }
+    navigate("/HighScoreBoard");
+  };
+
+  const pauseGame = () => {
+    if (!isPaused) {
+      stopTimer();
+      setPauseButtonText("Resume Game");
+    } else {
+      startTimer();
+      setPauseButtonText("Pause Game");
+    }
+    setIsPaused(!isPaused);
+  };
 
   return (
     <div className="container">
@@ -273,6 +298,9 @@ const TomatoAPI = () => {
                 </button>
               </div>
 
+              <button className="sign-button" onClick={pauseGame}>
+                {pauseButtonText}
+              </button>
               <button className="sign-button" onClick={restartGame}>
                 New Game
               </button>

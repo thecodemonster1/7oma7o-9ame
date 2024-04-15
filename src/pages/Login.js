@@ -57,7 +57,7 @@ const LoginPage = () => {
       }
 
       // Redirect to the TomatoAPI page if the username and password are correct
-      navigate("/TomatoAPI", { state: { data: username } });
+      navigate("/TomatoAPI", { state: { username } });
 
       setLoginPass(true);
     } catch (error) {
