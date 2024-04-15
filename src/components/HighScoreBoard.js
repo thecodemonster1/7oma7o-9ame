@@ -1,9 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { fetchHighScores } from "../components/firebase.js";
-import "../style/HighScoreBoard.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+import "../style/HighScoreBoard.css";
 
+// Initialize Firebase with your configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDTHDV__dW8v7x2H7H6IVvZ_4Cl19RDzOA",
+  authDomain: "tomato-game-b7281.firebaseapp.com",
+  databaseURL: "https://tomato-game-b7281-default-rtdb.firebaseio.com",
+  projectId: "tomato-game-b7281",
+  storageBucket: "tomato-game-b7281.appspot.com",
+  messagingSenderId: "178393927012",
+  appId: "1:178393927012:web:e4d5a7a2f28ecab9f0be71",
+  measurementId: "G-7HTTX7C0F8",
+};
+
+
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// Function to fetch high scores from the database
+const fetchHighScores = async () => {
+  const scoresRef = database.ref('scores');
+  const snapshot = await scoresRef.once('value');
+  const scores = snapshot.val();
+  return scores ? Object.values(scores).sort((a, b) => b.score - a.score) : [];
+};
 
 const HighScoreBoard = () => {
   const [highScores, setHighScores] = useState([]);
@@ -11,7 +33,6 @@ const HighScoreBoard = () => {
   useEffect(() => {
     const fetchScores = async () => {
       const scores = await fetchHighScores();
-      console.log("High Scores:", scores); // Check scores in console
       setHighScores(scores);
     };
     fetchScores();
@@ -29,7 +50,7 @@ const HighScoreBoard = () => {
           </tr>
         </thead>
         <tbody>
-          {highScores && highScores.map((score, index) => (
+          {highScores.map((score, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{score.username}</td>
