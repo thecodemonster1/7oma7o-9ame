@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "firebase/compat/database";
 import "../style/HighScoreBoard.css";
 
@@ -31,6 +31,9 @@ const HighScoreBoard = () => {
   const navigate = useNavigate();
   const [highScores, setHighScores] = useState([]);
 
+  const location = useLocation();
+  var username = location.state?.username;
+
   useEffect(() => {
     const fetchScores = async () => {
       const scores = await fetchHighScores();
@@ -40,7 +43,7 @@ const HighScoreBoard = () => {
   }, []);
 
   const goNewGame = () => {
-    navigate("/TomatoAPI")
+    navigate("/TomatoAPI", { state: { username } });
   }
 
   return (

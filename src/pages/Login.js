@@ -5,7 +5,7 @@ import "../style/Login.css";
 import firebase from "firebase/compat/app"; // Import the Firebase module
 import "firebase/compat/database"; // Import the Firebase Realtime Database module
 import { useNavigate } from "react-router-dom";
-
+import bcrypt from "bcryptjs";
 
 // Initialize Firebase with your configuration
 const firebaseConfig = {
@@ -35,6 +35,17 @@ const LoginPage = () => {
     // Handle form submission here
   };
 
+  // Function to hash the password
+  const hashPassword = async (password) => {
+    try {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      return hashedPassword;
+    } catch (error) {
+      throw new Error("Error hashing password");
+    }
+  };
+
   const logInfun = async () => {
     try {
       // Fetch user data for the entered username
@@ -50,11 +61,20 @@ const LoginPage = () => {
         return;
       }
 
+      // Get the hashed password from the database
+      const storedPassword = userData[Object.keys(userData)[0]].password;
+
+      // Compare the entered password with the stored hashed password
+      const passwordMatch = await bcrypt.compare(password, storedPassword);
+      // alert("stored password: "+ storedPassword + "\npassword match: " + passwordMatch);
       // Check if the entered password matches the database password
-      if (userData[Object.keys(userData)[0]].password !== password) {
+      if (!passwordMatch) {
         alert("Incorrect password. Please try again.");
         return;
       }
+
+      // Successful login - set username in local storage (optional)
+      localStorage.setItem("username", username);
 
       // Redirect to the TomatoAPI page if the username and password are correct
       navigate("/TomatoAPI", { state: { username } });

@@ -31,7 +31,7 @@ cd tomato-game # Navigating to project folder
 You can install these modules using npm:
 
 ```bash
-npm install react react-dom react-router-dom firebase @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+npm install react react-dom react-router-dom firebase @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons bcrypt
 ```
 
 3. Start the development server:

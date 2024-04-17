@@ -1,3 +1,6 @@
+body {
+  background-color: lightblue;
+}
 .container2 {
   display: flex;
   flex-direction: column;

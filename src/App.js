@@ -1,6 +1,6 @@
 import React from "react";
 import imageUrl from "./images/main7.jpg";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login.js";
 import SignUp from "./pages/SignUp.js";
 import TomatoAPI from "./API/TomatoAPI.js";
@@ -8,6 +8,10 @@ import HighScoreBoard from "./pages/HighScoreBoard.js";
 //*import './App.css';*/ // Import the CSS file
 
 const MainPage = () => {
+
+  const location = useLocation();
+  var username = location.state?.username;
+
   const navigate = useNavigate();
   return (
     <div

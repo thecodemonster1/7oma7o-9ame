@@ -10,9 +10,6 @@ import confetti from "https://cdn.skypack.dev/canvas-confetti";
 import loss from "../sounds/loss.wav";
 import won from "../sounds/won.wav";
 
-// import GameOver from "../components/GameOver";
-
-// Initialize Firebase with your configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDTHDV__dW8v7x2H7H6IVvZ_4Cl19RDzOA",
   authDomain: "tomato-game-b7281.firebaseapp.com",
@@ -33,7 +30,7 @@ const TomatoAPI = () => {
   const [solution, setSolution] = useState(-1);
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState("");
-  const [time, setTime] = useState(60);
+  const [time, setTime] = useState(20);
   const [timerRunning, setTimerRunning] = useState(false);
   const [pauseButtonText, setPauseButtonText] = useState("Pause");
   const [gameOver, setGameOver] = useState(false);
@@ -43,46 +40,31 @@ const TomatoAPI = () => {
   let wonAudio = new Audio(won);
   let lossAudio = new Audio(loss);
 
-
   const navigate = useNavigate();
   const location = useLocation();
   var username = location.state?.username;
 
-  // Write to firebase database
   const scoreData = {
     username: location.state?.username,
-    // username: username,
     score: score,
   };
 
   const fetchData = async () => {
     try {
-      // Fetch data from the Tomato API endpoint
       const response = await fetch("https://marcconrad.com/uob/tomato/api.php");
 
-      // Check if the response is successful
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
 
-      // Parse the response data as JSON
       const data = await response.json();
 
-      // Log the fetched question and solution to the console
-      console.log("API - Question =", data.question);
-      console.log("API - Solution =", data.solution);
-
-      // Set the fetched question and solution in the component's state
       setQuestion(data.question);
       setSolution(data.solution);
 
-      // Reset user input
       setUserInput("");
-
-      // Start the timer
       startTimer();
     } catch (error) {
-      // Handle errors if any
       setError(error.message);
       console.error("Error:", error);
     }
@@ -96,23 +78,30 @@ const TomatoAPI = () => {
     setTimerRunning(false);
   };
 
+  const heartCountDec = () => {
+    setHeart((heart) => {
+      if (heart === 0) {
+        setGameOver(true);
+        stopTimer();
+        firebase.database().ref("scores").push(scoreData);
+      }
+      return heart - 1;
+    });
+  };
+  
+
   useEffect(() => {
     let interval;
-    if (timerRunning) {
+    if (timerRunning && heart > 0) {
       interval = setInterval(() => {
         setTime((prevTime) => {
-          // Decrement time by 1 second
           if (prevTime === 0) {
-            // If time reaches 0, decrement heart by 1
-            const newHeart = heart - 1;
-            setHeart(newHeart);
-            if (newHeart < 1) {
-              // If no hearts left, stop the timer and set game over
+            heartCountDec();
+            if (heart <= 0) {
               stopTimer();
               setGameOver(true);
             } else {
-              // If hearts left, reset time to 60 seconds
-              setTime(60);
+              setTime(20);
             }
           }
           return prevTime > 0 ? prevTime - 1 : prevTime;
@@ -121,31 +110,30 @@ const TomatoAPI = () => {
     } else {
       clearInterval(interval);
     }
+  
+    if (heart === 1) {
+      setGameOver(true);
+    }
+
     return () => clearInterval(interval);
-  }, [timerRunning]);
+  }, [timerRunning, heart]);
+  
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
       wonAudio.play();
       confetti();
-      setScore(score + 10);
-      setTime(60);
+      setScore((score) => score + 10);
+      setTime(20);
       fetchData();
-      // restartGame();
+      clearAnswer();
     } else {
       lossAudio.play();
-      const newHeart = heart - 1;
-      setHeart(newHeart);
-      // alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
-
-      // Reset user input
       clearAnswer();
-
-      if (newHeart <= 0) {
-        console.log(username + " is Game Over!");
+      heartCountDec();
+      if (heart <= 1) {
         setGameOver(true);
         firebase.database().ref("scores").push(scoreData);
-        // GameOver();
         stopTimer();
       }
     }
@@ -156,18 +144,21 @@ const TomatoAPI = () => {
   };
 
   const restartGame = () => {
-    // setRestartButtonText("New Game");
     setGameOver(false);
     setHeart(5);
     setScore(0);
     stopTimer();
+    setTime(20);
     fetchData();
   };
+
+  if (heart === 0){
+    setGameOver(true);
+  }
 
   const handleNumberClick = (number) => {
     setUserInput((prevUserInput) => {
       if (prevUserInput.length < 1) {
-        // Allowing only single-digit input
         return number.toString();
       }
       return prevUserInput;
@@ -180,7 +171,7 @@ const TomatoAPI = () => {
   };
 
   const goToScoreboard = () => {
-    navigate("/HighScoreBoard");
+    navigate("/HighScoreBoard", { state: { username } });
   };
 
   const pauseGame = () => {
@@ -195,8 +186,9 @@ const TomatoAPI = () => {
   };
 
   const goLogout = () => {
-    navigate("/");
+    navigate("/", { state: { username: null } });
   };
+
   return (
     <div className="container">
       {!startGame ? (
@@ -204,7 +196,7 @@ const TomatoAPI = () => {
           <h1>🍅Welcome to the Tomato Game! Here are the rules:🍅</h1>
           <p>
             🍅Hidden Equations: You'll be presented with mathematical equations,
-            and some numbers will be cleverly hidden within tomatos.
+            and some numbers will be cleverly hidden within tomatoes.
           </p>
           <p>
             🍅Find the Numbers: Your task is to identify the hidden numbers
@@ -224,11 +216,11 @@ const TomatoAPI = () => {
             tomato-solving skills.
           </p>
           <p>
-            🍅Logout:You can logout anytime using the "Logout" option in the
+            🍅Logout: You can logout anytime using the "Logout" option in the
             navigation menu.
           </p>
           <p>
-            🍅Play the Game:Click "Start Game"to begin your Tomato game
+            🍅Play the Game: Click "Start Game" to begin your Tomato game
             adventure.
           </p>
           <button className="sign-button" onClick={handleStartGame}>
@@ -257,7 +249,6 @@ const TomatoAPI = () => {
               >
                 Scoreboard
               </button>
-              {/* <GameOver /> */}
             </>
           ) : (
             <>
@@ -282,7 +273,7 @@ const TomatoAPI = () => {
                 ))}
               </div>
               <div className="answer">
-                Answer:
+                Answer:{" "}
                 <input
                   type="number"
                   className="inp-ans"
@@ -291,9 +282,7 @@ const TomatoAPI = () => {
                 />
                 <button
                   className="sign-button"
-                  style={{
-                    width: "150px",
-                  }}
+                  style={{ width: "150px" }}
                   onClick={checkAnswer}
                   disabled={userInput.length === 0}
                 >
@@ -301,9 +290,7 @@ const TomatoAPI = () => {
                 </button>
                 <button
                   className="sign-button"
-                  style={{
-                    width: "150px",
-                  }}
+                  style={{ width: "150px" }}
                   onClick={clearAnswer}
                 >
                   Clear

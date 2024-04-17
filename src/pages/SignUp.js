@@ -5,6 +5,7 @@ import "../style/SignUp.css"; // Import your CSS file
 import firebase from "firebase/compat/app"; 
 import "firebase/compat/database"; 
 import { useNavigate } from "react-router-dom";
+import bcrypt from 'bcryptjs';
 
 // Initialize Firebase with your configuration
 const firebaseConfig = {
@@ -34,7 +35,7 @@ const SignUpPage = () => {
     // Handle form submission here
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Check if any of the input fields are empty
     if (!username || !email || !password || !confirmPassword) {
       alert("Please fill in all fields");
@@ -47,12 +48,15 @@ const SignUpPage = () => {
       return; // Exit the function early
     }
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the number of salt rounds
+
+
     // Write to firebase database
     const userData = {
       username: username,
       email: email,
-      password: password,
-      confirmPassword: confirmPassword,
+      password: hashedPassword,
     };
 
     firebase.database().ref("users").push(userData);
