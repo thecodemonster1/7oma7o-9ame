@@ -6,6 +6,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import HighScoreBoard from "../pages/HighScoreBoard";
+import confetti from "https://cdn.skypack.dev/canvas-confetti";
+import loss from "../sounds/loss.wav";
+import won from "../sounds/won.wav";
+
 // import GameOver from "../components/GameOver";
 
 // Initialize Firebase with your configuration
@@ -35,11 +39,15 @@ const TomatoAPI = () => {
   const [gameOver, setGameOver] = useState(false);
   const [startGame, setStartGame] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  
+
+  let wonAudio = new Audio(won);
+  let lossAudio = new Audio(loss);
+
+
   const navigate = useNavigate();
   const location = useLocation();
   var username = location.state?.username;
-  
+
   // Write to firebase database
   const scoreData = {
     username: location.state?.username,
@@ -115,16 +123,17 @@ const TomatoAPI = () => {
     }
     return () => clearInterval(interval);
   }, [timerRunning]);
-  
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
+      wonAudio.play();
+      confetti();
       setScore(score + 10);
       setTime(60);
-      alert("Correct!");
       fetchData();
       // restartGame();
     } else {
+      lossAudio.play();
       const newHeart = heart - 1;
       setHeart(newHeart);
       // alert(`Incorrect. Try again! \n You have left ${newHeart} lives more`);
@@ -187,7 +196,7 @@ const TomatoAPI = () => {
 
   const goLogout = () => {
     navigate("/");
-  }
+  };
   return (
     <div className="container">
       {!startGame ? (
@@ -300,16 +309,17 @@ const TomatoAPI = () => {
                   Clear
                 </button>
               </div>
-
-              <button className="sign-button" onClick={pauseGame}>
-                {pauseButtonText}
-              </button>
-              <button className="sign-button" onClick={restartGame}>
-                New Game
-              </button>
-              <button className="sign-button" onClick={goLogout}>
-                Logout
-              </button>
+              <div className="other-buttons">
+                <button className="sign-button" onClick={pauseGame}>
+                  {pauseButtonText}
+                </button>
+                <button className="sign-button" onClick={restartGame}>
+                  New Game
+                </button>
+                <button className="sign-button" onClick={goLogout}>
+                  Logout
+                </button>
+              </div>
             </>
           )}
         </>
