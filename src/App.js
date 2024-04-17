@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Login from "./pages/Login.js";
 import SignUp from "./pages/SignUp.js";
 import TomatoAPI from "./API/TomatoAPI.js";
-import Description from "./pages/Description.js";
 import HighScoreBoard from "./pages/HighScoreBoard.js";
 //*import './App.css';*/ // Import the CSS file
 
@@ -80,7 +79,6 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/Description" element={<Description />} />
         <Route path="/HighScoreBoard" element={<HighScoreBoard />} />
         <Route path="/TomatoAPI" element={<TomatoAPI />} />
       </Routes>

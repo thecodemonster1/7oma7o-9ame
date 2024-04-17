@@ -5,7 +5,7 @@ import "../style/Login.css";
 import firebase from "firebase/compat/app"; // Import the Firebase module
 import "firebase/compat/database"; // Import the Firebase Realtime Database module
 import { useNavigate } from "react-router-dom";
-import Description from "./Description";
+
 
 // Initialize Firebase with your configuration
 const firebaseConfig = {
