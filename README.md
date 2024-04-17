@@ -52,8 +52,8 @@ You can install these modules using npm:
 npm install react react-dom react-router-dom firebase @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 ``` -->
 
-````markdown
-# 7oma7o-9ame
+
+### 7oma7o-9ame
 
 Welcome to the 7oma7o-9ame! This is a simple React-based web application where players solve mathematical equations to uncover hidden numbers within tomatoes. The game challenges players to find the hidden numbers within a certain time limit while also managing their heart count.
 
@@ -116,8 +116,3 @@ npm install react react-dom react-router-dom firebase @fortawesome/react-fontawe
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-```
-
-```
-````
