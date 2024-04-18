@@ -92,6 +92,11 @@ const TomatoAPI = () => {
   };
   
   useEffect(() => {
+    if (!username) {
+      navigate("/");
+      return; // Return to prevent further execution of the useEffect hook
+    }
+  
     // Check if the game is over and push score data to Firebase
     if (gameOver) {
       firebase.database().ref("scores").push(scoreData);
@@ -114,7 +119,8 @@ const TomatoAPI = () => {
     }
   
     return () => clearInterval(interval);
-  }, [gameOver, timerRunning]);
+  }, [username, navigate, gameOver, timerRunning]);
+  
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
