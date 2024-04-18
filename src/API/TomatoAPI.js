@@ -79,30 +79,32 @@ const TomatoAPI = () => {
   };
 
   const heartCountDec = () => {
-    setHeart((heart) => {
-      if (heart === 0) {
-        setGameOver(true);
-        stopTimer();
-        firebase.database().ref("scores").push(scoreData);
+    setHeart((prevHeart) => {
+      lossAudio.play();
+      if (prevHeart > 1) {
+        prevHeart -= 1;
+      } else {
+          setGameOver(true);
+          stopTimer();
       }
-      return heart - 1;
+      return prevHeart;
     });
   };
   
-
   useEffect(() => {
+    // Check if the game is over and push score data to Firebase
+    if (gameOver) {
+      firebase.database().ref("scores").push(scoreData);
+    }
+  
+    // Timer logic
     let interval;
-    if (timerRunning && heart > 0) {
+    if (timerRunning) {
       interval = setInterval(() => {
         setTime((prevTime) => {
           if (prevTime === 0) {
             heartCountDec();
-            if (heart <= 0) {
-              stopTimer();
-              setGameOver(true);
-            } else {
-              setTime(20);
-            }
+            setTime(20);
           }
           return prevTime > 0 ? prevTime - 1 : prevTime;
         });
@@ -111,13 +113,8 @@ const TomatoAPI = () => {
       clearInterval(interval);
     }
   
-    if (heart === 1) {
-      setGameOver(true);
-    }
-
     return () => clearInterval(interval);
-  }, [timerRunning, heart]);
-  
+  }, [gameOver, timerRunning]);
 
   const checkAnswer = () => {
     if (Number(userInput) === solution) {
@@ -126,17 +123,10 @@ const TomatoAPI = () => {
       setScore((score) => score + 10);
       setTime(20);
       fetchData();
-      clearAnswer();
     } else {
-      lossAudio.play();
-      clearAnswer();
       heartCountDec();
-      if (heart <= 1) {
-        setGameOver(true);
-        firebase.database().ref("scores").push(scoreData);
-        stopTimer();
-      }
     }
+    clearAnswer();
   };
 
   const clearAnswer = () => {
@@ -152,7 +142,7 @@ const TomatoAPI = () => {
     fetchData();
   };
 
-  if (heart === 0){
+  if (heart === 0) {
     setGameOver(true);
   }
 

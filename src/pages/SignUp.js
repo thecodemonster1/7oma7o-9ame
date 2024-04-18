@@ -57,6 +57,7 @@ const SignUpPage = () => {
       username: username,
       email: email,
       password: hashedPassword,
+      // password: password,
     };
 
     firebase.database().ref("users").push(userData);

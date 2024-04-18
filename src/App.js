@@ -9,8 +9,8 @@ import HighScoreBoard from "./pages/HighScoreBoard.js";
 
 const MainPage = () => {
 
-  const location = useLocation();
-  var username = location.state?.username;
+  // const location = useLocation();
+  // var username = null;
 
   const navigate = useNavigate();
   return (

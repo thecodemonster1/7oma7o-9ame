@@ -42,6 +42,7 @@ const HighScoreBoard = () => {
     fetchScores();
   }, []);
 
+
   const goNewGame = () => {
     navigate("/TomatoAPI", { state: { username } });
   }
